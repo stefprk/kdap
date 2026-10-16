@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Πρότυπο ΚΔΑΠ</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: heading band, then two phone frames side by side (stacked on narrow screens) */
+:root{
+  --bg:#EEF1F4; --card:#FFFFFF; --screen:#F7F8FA; --fg:#17212B; --muted:#4A5562; --line:#E3E7EC; --frame:#17212B;
+  --blue:#1D5FC4; --blue-soft:#E6EEFA; --green:#1E7A4C; --orange:#B4530B; --orange-line:#F0CDB0; --orange-ink:#9A4508; --gray:#5B6672;
+  --on-accent:#FFFFFF;
+  --font:'Commissioner', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F141A; --card:#19212B; --screen:#141A21; --fg:#E8EDF3; --muted:#A3AFBD; --line:#2C3743; --frame:#3A4552;
+  --blue:#6FA3F2; --blue-soft:#1E2E46; --green:#5CC48D; --orange:#E08A47; --orange-line:#5A3A22; --orange-ink:#F0A56A; --gray:#9AA6B4;
+  --on-accent:#0E1520; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F141A; --card:#19212B; --screen:#141A21; --fg:#E8EDF3; --muted:#A3AFBD; --line:#2C3743; --frame:#3A4552;
+  --blue:#6FA3F2; --blue-soft:#1E2E46; --green:#5CC48D; --orange:#E08A47; --orange-line:#5A3A22; --orange-ink:#F0A56A; --gray:#9AA6B4;
+  --on-accent:#0E1520; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.45}
+.wrap{max-width:1000px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:36px 56px;display:flex;flex-direction:column;gap:28px}
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 24px}
+.top-text{display:flex;flex-direction:column;gap:8px;flex:1 1 480px;min-width:0}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+h1{margin:0;font-size:clamp(26px,4.5vw,34px);line-height:1.15;text-wrap:balance}
+.top p{margin:0;color:var(--muted);font-size:16px;max-width:62ch}
+.btn-reset{height:44px;padding:0 20px;border-radius:22px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;font-weight:600;cursor:pointer}
+.phones{display:flex;flex-wrap:wrap;justify-content:center;gap:40px 72px}
+.col{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:390px}
+.col-label{font-size:14px;font-weight:600;color:var(--muted)}
+.phone{width:100%;height:780px;border:10px solid var(--frame);border-radius:44px;background:var(--screen);overflow:hidden;display:flex;flex-direction:column}
+.ph-head{padding:26px 22px 16px;display:flex;flex-direction:column;gap:4px;border-bottom:1px solid var(--line);background:var(--card)}
+.ph-head.parent{background:var(--blue);color:var(--on-accent);border-bottom:0}
+.ph-head .small{font-size:13px;color:var(--muted)}
+.ph-head.parent .small{color:var(--on-accent);opacity:.9}
+.ph-head .big{font-size:21px;font-weight:700}
+.ph-body{flex:1;overflow-y:auto;padding:16px 14px 28px;display:flex;flex-direction:column;gap:18px}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sec-h{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.sec-h.med{color:var(--orange-ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.card.med{border-color:var(--orange-line)}
+.card.live{background:var(--blue-soft);border:2px solid var(--blue)}
+.card.done{opacity:.72}
+.row{display:flex;gap:12px;align-items:flex-start}
+.time{width:50px;flex:none;display:flex;flex-direction:column;font-weight:700;font-variant-numeric:tabular-nums}
+.time span+span{font-size:12px;font-weight:500;color:var(--muted)}
+.info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.name{font-size:16px;font-weight:700}
+.detail{font-size:13px;color:var(--muted)}
+.status{font-size:12px;font-weight:700;color:var(--muted)}
+.live .status{color:var(--blue)} .done .status{color:var(--green)}
+.act-btn{flex:none;height:44px;min-width:84px;padding:0 14px;border:0;border-radius:12px;background:var(--blue);color:var(--on-accent);font:inherit;font-weight:700;cursor:pointer}
+.live .act-btn{background:var(--fg);color:var(--card)}
+.med-top{display:flex;justify-content:space-between;gap:12px}
+.med-time{font-weight:700;color:var(--orange-ink);font-variant-numeric:tabular-nums}
+.give{height:44px;border:0;border-radius:12px;background:var(--orange);color:var(--on-accent);font:inherit;font-weight:700;cursor:pointer}
+.given{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--green)}
+.meal{margin-top:4px;padding-top:12px;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:10px}
+.meal-q{font-size:13px;font-weight:600;color:var(--muted)}
+.kid{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.kid b{font-size:14px}
+.pills{display:flex;gap:6px}
+.pill{height:44px;min-width:58px;padding:0 10px;border-radius:22px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.pill.on{background:var(--green);border-color:var(--green);color:var(--on-accent)}
+.feed-item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;gap:12px;animation:pop .3s ease-out}
+.dot{flex:none;width:10px;height:10px;margin-top:5px;border-radius:5px}
+.f-meta{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.f-title{font-size:15px;font-weight:700}
+.f-body{font-size:14px;color:var(--muted)}
+.note{font-size:12px;color:var(--muted);text-align:center}
+button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+@keyframes pop{from{transform:translateY(-6px);opacity:.4}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.feed-item{animation:none}}
+@media (max-width:480px){.phone{height:auto;max-height:none;border-width:6px;border-radius:28px}.ph-body{overflow:visible}}
+</style>
+
+<main class="wrap">
+  <div class="top">
+    <div class="top-text">
+      <div class="eyebrow">classio · πρότυπο για ΚΔΑΠ</div>
+      <h1>Ένα κλικ από τον υπάλληλο, ενημέρωση στον γονιό</h1>
+      <p>Πατήστε «Έναρξη», «Λήξη», τι έφαγε ή «Δόθηκε» στην οθόνη του υπαλλήλου. Η ενημέρωση εμφανίζεται αμέσως στο κινητό του γονιού.</p>
+    </div>
+    <button class="btn-reset" id="reset" type="button">Από την αρχή</button>
+  </div>
+
+  <div class="phones">
+    <div class="col">
+      <div class="col-label">Οθόνη υπαλλήλου</div>
+      <div class="phone">
+        <div class="ph-head">
+          <div class="small">Παρασκευή 16 Οκτωβρίου</div>
+          <div class="big">Ομάδα Β · 8–10 ετών</div>
+          <div class="small">Παρόντα 14 από 16 · Υπεύθυνη: Κατερίνα Σ.</div>
+        </div>
+        <div class="ph-body">
+          <div class="sec">
+            <div class="sec-h med">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(-45 12 12)"/><path d="M9.5 9.5l5 5"/></svg>
+              Φάρμακα σήμερα
+            </div>
+            <div id="meds" class="sec"></div>
+          </div>
+          <div class="sec">
+            <div class="sec-h">Πρόγραμμα ημέρας</div>
+            <div id="acts" class="sec"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="col-label">Τι βλέπει ο γονιός</div>
+      <div class="phone">
+        <div class="ph-head parent">
+          <div class="small">ΚΔΑΠ Παράδειγμα · Ομάδα Β</div>
+          <div class="big">Η μέρα της Ελένης</div>
+          <div class="small" id="fcount"></div>
+        </div>
+        <div class="ph-body">
+          <div id="feed" class="sec" aria-live="polite"></div>
+          <div class="note">Ο γονιός βλέπει μόνο ό,τι αφορά το δικό του παιδί. Όλα τα ονόματα είναι παράδειγμα.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+const ACTS=[
+ {id:'a0',start:'13:30',end:'14:00',name:'Άφιξη από το σχολείο',detail:'Παραλαβή από το 2ο Δημοτικό',parent:''},
+ {id:'a1',start:'14:00',end:'14:40',name:'Μεσημεριανό',detail:'Μακαρόνια με κιμά, σαλάτα',meal:true,parent:'Η ομάδα κάθισε για φαγητό: μακαρόνια με κιμά και σαλάτα.'},
+ {id:'a2',start:'14:45',end:'15:55',name:'Μελέτη',detail:'Σχολικά μαθήματα για αύριο',parent:'Τα παιδιά ξεκίνησαν τα μαθήματα του σχολείου.'},
+ {id:'a3',start:'16:00',end:'16:55',name:'Εικαστικά',detail:'Φθινοπωρινά φύλλα με πηλό',parent:'Σήμερα φτιάχνουν φθινοπωρινά φύλλα με πηλό.'},
+ {id:'a4',start:'17:00',end:'17:40',name:'Ποδόσφαιρο',detail:'Στην αυλή, με τον Γιώργο',parent:'Παιχνίδι ποδοσφαίρου στην αυλή.'},
+ {id:'a5',start:'17:45',end:'18:00',name:'Σνακ',detail:'Φρούτο και κουλουράκι',meal:true,parent:'Σνακ: φρούτο και κουλουράκι.'}
+];
+const MEDS=[
+ {id:'m1',child:'Ελένη Κ.',drug:'Αντιισταμινικό σιρόπι, 5 ml',note:'Γραπτή εντολή γονέα έως 31/10',time:'14:30',own:true},
+ {id:'m2',child:'Νίκος Π.',drug:'Εισπνεόμενο, 2 εισπνοές πριν την άσκηση',note:'Ιατρική οδηγία στον φάκελο',time:'16:55',own:false}
+];
+const KIDS=[{id:'k1',name:'Ελένη Κ.',own:true},{id:'k2',name:'Νίκος Π.',own:false},{id:'k3',name:'Άρης Μ.',own:false}];
+const OPTS=[{id:'all',label:'Όλο'},{id:'some',label:'Λίγο'},{id:'none',label:'Τίποτα'}];
+const TONE={gray:'var(--gray)',blue:'var(--blue)',green:'var(--green)',orange:'var(--orange)'};
+const LABELS=['Σε αναμονή','Σε εξέλιξη','Ολοκληρώθηκε'];
+let S;
+function fresh(){return{st:{a0:2,a1:0,a2:0,a3:0,a4:0,a5:0},meal:{},meds:{},feed:[{time:'13:34',kind:'Προσέλευση',tone:'gray',title:'Η Ελένη έφτασε στο ΚΔΑΠ',body:'Την παρέλαβε η Κατερίνα από το 2ο Δημοτικό.'}]}}
+S=fresh();
+function push(item){if(item)S.feed.unshift(item)}
+function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+const CHECK='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+function press(a){
+  const v=S.st[a.id];if(v>=2)return;const nx=v+1;S.st[a.id]=nx;
+  const kind=a.meal?'Φαγητό':'Δραστηριότητα',tone=a.meal?'green':'blue';
+  push(nx===1?{time:a.start,kind,tone,title:'Ξεκίνησε: '+a.name,body:a.parent}:{time:a.end,kind,tone,title:'Τελείωσε: '+a.name,body:'Από '+a.start+' έως '+a.end+'.'});
+  render();
+}
+function pick(k,o){
+  S.meal[k.id]=o.id;
+  if(k.own){const txt={all:'Η Ελένη έφαγε όλο το φαγητό της.',some:'Η Ελένη έφαγε λίγο από το φαγητό της.',none:'Η Ελένη δεν έφαγε σήμερα το μεσημεριανό.'};
+    push({time:'14:40',kind:'Φαγητό',tone:'green',title:'Μεσημεριανό: '+o.label.toLowerCase(),body:txt[o.id]});}
+  render();
+}
+function give(m){
+  if(S.meds[m.id])return;S.meds[m.id]=true;
+  if(m.own)push({time:m.time,kind:'Φάρμακο',tone:'orange',title:'Δόθηκε το φάρμακο',body:m.drug+'. Το έδωσε η Κατερίνα Σ.'});
+  render();
+}
+
+function render(){
+  const meds=document.getElementById('meds');meds.replaceChildren();
+  MEDS.forEach(m=>{
+    const c=el('div','card med');
+    const top=el('div','med-top');const info=el('div','info');
+    info.append(el('div','name',m.child),el('div',null,m.drug),el('div','detail',m.note));
+    top.append(info,el('div','med-time',m.time));c.appendChild(top);
+    if(S.meds[m.id]){const g=el('div','given');g.innerHTML=CHECK;g.append('Δόθηκε '+m.time+' από Κατερίνα Σ.');c.appendChild(g)}
+    else{const b=el('button','give','Δόθηκε');b.type='button';b.setAttribute('aria-label','Δόθηκε το φάρμακο στον/στην '+m.child);b.onclick=()=>give(m);c.appendChild(b)}
+    meds.appendChild(c);
+  });
+  const acts=document.getElementById('acts');acts.replaceChildren();
+  ACTS.forEach(a=>{
+    const v=S.st[a.id];const c=el('div','card'+(v===1?' live':v===2?' done':''));
+    const row=el('div','row');const t=el('div','time');t.append(el('span',null,a.start),el('span',null,a.end));
+    const info=el('div','info');info.append(el('div','name',a.name),el('div','detail',a.detail),el('div','status',LABELS[v]));
+    row.append(t,info);
+    if(v<2){const b=el('button','act-btn',v===1?'Λήξη':'Έναρξη');b.type='button';b.setAttribute('aria-label',(v===1?'Λήξη: ':'Έναρξη: ')+a.name);b.onclick=()=>press(a);row.appendChild(b)}
+    c.appendChild(row);
+    if(a.id==='a1'&&v>=1){
+      const m=el('div','meal');m.appendChild(el('div','meal-q','Πόσο έφαγε το κάθε παιδί;'));
+      KIDS.forEach(k=>{const r=el('div','kid');r.appendChild(el('b',null,k.name));const p=el('div','pills');p.setAttribute('role','group');p.setAttribute('aria-label','Πόσο έφαγε: '+k.name);
+        OPTS.forEach(o=>{const b=el('button','pill'+(S.meal[k.id]===o.id?' on':''),o.label);b.type='button';b.setAttribute('aria-pressed',S.meal[k.id]===o.id?'true':'false');b.onclick=()=>pick(k,o);p.appendChild(b)});
+        r.appendChild(p);m.appendChild(r)});
+      c.appendChild(m);
+    }
+    acts.appendChild(c);
+  });
+  const feed=document.getElementById('feed');feed.replaceChildren();
+  S.feed.forEach(f=>{
+    const c=el('div','feed-item');const d=el('div','dot');d.style.background=TONE[f.tone];
+    const info=el('div','info');const meta=el('div','f-meta');const k=el('span',null,f.kind);k.style.color=TONE[f.tone];
+    meta.append(k,el('span',null,f.time));info.append(meta,el('div','f-title',f.title),el('div','f-body',f.body));
+    c.append(d,info);feed.appendChild(c);
+  });
+  document.getElementById('fcount').textContent=S.feed.length+(S.feed.length===1?' ενημέρωση σήμερα':' ενημερώσεις σήμερα');
+}
+document.getElementById('reset').onclick=()=>{S=fresh();render()};
+render();
+</script>
+
+</body>
+</html>
